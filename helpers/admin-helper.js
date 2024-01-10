@@ -62,6 +62,60 @@ module.exports = {
       console.logI(error)
     }
   },
+  doLoginUser: (userData) => {
+    //get the data from the db and return
+        console.log(userData,"Dlogin")
+        const { email, password } = userData;
+          return new Promise(async (resolve,reject) =>{
+            const user = await db
+            .get()
+            .collection(collection.USER_COLLECTION)
+            .findOne({ email, password });
+            if (user) {
+              // If staff with given mobile and username is found, resolve with the staff details
+              console.log(user,"found!")
+              resolve(user);
+          } else {
+              // If staff credentials are invalid or not found, reject with appropriate message
+              reject('Invalid credentials');
+          }
+        })
+  },
+  fetchAllComplaints: () => {
+    return new Promise(async (resolve, reject) => {
+      let complaints = await db
+        .get()
+        .collection(collection.COMPLAINT_COLLECTION)
+        .find()
+        .toArray();
+      resolve(complaints);
+    });
+  },
+  createComplaints: (data) => {
+    return new Promise(async (resolve, reject) => {
+      db.get()
+        .collection(collection.COMPLAINT_COLLECTION)
+        .insertOne(data)
+        .then(() => {
+          resolve();
+        });
+    });
+  },
+  createUser: (data) => {
+    try {
+      return new Promise(async (resolve, reject) => {
+        console.log(data)
+      db.get()
+        .collection(collection.USER_COLLECTION)
+        .insertOne(data)
+        .then(() => {
+          resolve();
+        });
+    });
+    } catch (error) {
+      console.logI(error)
+    }
+  },
   doLogin: (details) => {
     return new Promise(async (resolve, reject) => {
       let admin = await db

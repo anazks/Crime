@@ -22,6 +22,19 @@ router.post('/register',(req,res)=>{
     }
   });
 })
+
+router.post('/addComplaints',(req,res)=>{
+  console.log("on addComplaints")
+  let data = req.body
+  adminHelpers.createComplaints(data).then((response) => {
+    if (response) {
+      console.log(response)
+      res.redirect("/");
+    } else {
+      res.redirect("/");
+    }
+  });
+})
 router.get("/logout", (req, res) => {
   req.session.user = null;
   res.redirect("/");
@@ -177,8 +190,41 @@ router.get("/genaral", function (req, res, next) {
     res.redirect('/error/503')
   }
 });
-
-
+router.post('/register',(req,res)=>{
+  console.log("on regisater")
+  let data = req.body
+  adminHelpers.createUser(data).then((response) => {
+    if (response) {
+      console.log(response)
+      res.redirect("/");
+    } else {
+      res.redirect("/");
+    }
+  });
+})
+router.post('/Login',(req,res)=>{
+  console.log("on Login")
+  let {email} = req.body
+  let {password} = req.body
+  let data = {
+    email,
+    password
+  }
+  adminHelpers.doLoginUser(data).then((response) => {
+    if (response) {
+      console.log(response)
+      req.session.user = response
+      console.log(req.session.user,"from session")
+      res.redirect("/");
+    } else {
+      res.redirect("/");
+    }
+  });
+})
+router.get('/logout',(req,res)=>{
+    req.session.destroy()
+    res.redirect('/')
+})
 
 module.exports = router;
 // router.all("/*", function (req, res, next) {

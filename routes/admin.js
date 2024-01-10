@@ -351,6 +351,29 @@ router.get("/photo-gallery", async (req, res, next) => {
     res.redirect('/error/503')
   }
 });
+router.get("/complaints", async (req, res, next) => {
+  //to render the gallery page
+  try {
+    let complaints = await adminHelpers.fetchAllComplaints();
+    console.log(complaints)
+    if(req.session.staff){
+      res.render("admin/complaints", {
+        staffPartials :true,
+        complaints
+      });
+    }else{
+      res.render("admin/complaints", {
+     
+        complaints
+
+      });
+    }
+  
+  } catch (error) {
+    console.log(error)
+    res.redirect('/error/503')
+  }
+});
 router.get("/add-to-gallery", (req, res, next) => {
   //to render the photo adding form
   res.render("admin/add-new-photogallery");
