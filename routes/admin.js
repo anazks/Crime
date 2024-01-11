@@ -125,7 +125,7 @@ router.get("/", async function (req, res, next) {
 //staff routes----------------------------------------------------------------------------
 
 //question papers--------------------------------------------------------
-router.get("/question-papers", async (req, res, next) => {
+router.get("/FIR", async (req, res, next) => {
   try {
     if(req.session.staff){
       let   staffPartials = true
@@ -151,7 +151,7 @@ router.get("/question-papers", async (req, res, next) => {
   }
 });
 
-router.get("/add-new-questionpaper", (req, res, next) => {
+router.get("/add-new-FIR", (req, res, next) => {
   if(req.session.staff){
     var {staff} = req.session;
     console.log(staff)
@@ -162,16 +162,16 @@ router.get("/add-new-questionpaper", (req, res, next) => {
     
   res.render("admin/add-question-paper");
 });
-router.post("/add-new-questionpaper", (req, res, next) => {
+router.post("/add-new-FIR", (req, res, next) => {
   questionHelper.addNewQuestionPaper(req.body).then((docId) => {
     console.log(docId);
     let docFromClient = req.files.qustionP;
     let uploadPath = "./public/questions/" + docId + ".pdf";
     docFromClient.mv(uploadPath, (err, done) => {
-      if (!err) res.redirect("/admin/question-papers");
+      if (!err) res.redirect("/admin/FIR");
       else {
         res.status(400);
-        res.redirect("/admin/add-new-questionpaper");
+        res.redirect("/admin/add-new-FIR");
       }
     });
   });
@@ -180,9 +180,9 @@ router.get("/delete-questionpaper/:id", (req, res, next) => {
   let q_id = req.params.id;
   questionHelper.deleteQuestionPaper(q_id).then((deletedQuestion) => {
     if (deletedQuestion.errorMsg) {
-      res.redirect("/admin/question-papers");
+      res.redirect("/admin/FIR");
     } else {
-      res.redirect("/admin/question-papers");
+      res.redirect("/admin/FIR");
     }
   });
 });
@@ -193,7 +193,7 @@ router.get("/edit-questionpaper/:id", async (req, res, next) => {
 
     if (q_obj.errorMsg) {
       res.status(404);
-      res.redirect("/admin/question-papers");
+      res.redirect("/admin/FIR");
     } else
       res.render("admin/edit-questionPaper", {
         questionpaperObj: q_obj,
@@ -216,13 +216,13 @@ router.post("/edit-questionpaper", (req, res, next) => {
         docFromClient.mv(uploadPath, (err, done) => {
           if (!err) {
             res.status(200);
-            res.redirect("/admin/question-papers");
+            res.redirect("/admin/FIR");
           } else {
             res.status(400);
             res.redirect("/admin/edit-form-page");
           }
         });
-      } else res.redirect("/admin/question-papers");
+      } else res.redirect("/admin/FIR");
     }
   });
 });
@@ -236,7 +236,7 @@ router.post("/edit-questionpaper", (req, res, next) => {
 
 //forms---------------------------------------------------------------------------------
 
-router.get("/forms", async (req, res, next) => {
+router.get("/evidence-list", async (req, res, next) => {
   try {
     let formsObj = await formHelper.fetchAllForms();
     // console.log(formsObj);
@@ -268,7 +268,7 @@ router.post("/add-new-form", (req, res, next) => {
     docFromClient.mv(uploadPath, (err, done) => {
       if (!err) {
         res.status(200);
-        res.redirect("/admin/forms");
+        res.redirect("/admin/evidence-list");
       } else {
         res.status(400);
         res.redirect("/admin/add-new-form");
@@ -280,10 +280,10 @@ router.get("/delete-form/:id", (req, res, next) => {
   let f_id = req.params.id;
   formHelper.deleteForm(f_id).then((deletedForm) => {
     if (deletedForm.errorMsg) {
-      res.redirect("/admin/forms");
+      res.redirect("/admin/evidence-list");
     } else {
       console.log("successfully deleted");
-      res.redirect("/admin/forms");
+      res.redirect("/admin/evidence-list");
     }
   });
 });
@@ -293,7 +293,7 @@ router.get("/edit-form-page/:id", async (req, res, next) => {
     let formData = await formHelper.fetchOneForm(formId);
     if (formData.errorMsg) {
       res.status(404);
-      res.redirect("/admin/forms");
+      res.redirect("/admin/evidence-list");
     } else
       res.render("admin/edit-form", {
         formObj: formData,
@@ -318,20 +318,20 @@ router.post("/edit-form-page", (req, res, next) => {
         docFromClient.mv(uploadPath, (err, done) => {
           if (!err) {
             res.status(200);
-            res.redirect("/admin/forms");
+            res.redirect("/admin/evidence-list");
           } else {
             res.status(400);
             res.redirect("/admin/edit-form-page");
           }
         });
-      } else res.redirect("/admin/forms");
+      } else res.redirect("/admin/evidence-list");
     }
   });
 });
 
 //gallery----------------------------------------------------------------------------------
 
-router.get("/photo-gallery", async (req, res, next) => {
+router.get("/wanted-list", async (req, res, next) => {
   //to render the gallery page
   try {
     let photos = await photosHelper.fetchAllPhotos();
@@ -387,7 +387,7 @@ router.post("/add-to-gallery", (req, res, next) => {
     let uploadPath = "./public/img/gallery/" + imgId + ".jpg";
     docFromClient.mv(uploadPath, (err, done) => {
       if (!err) {
-        res.status(200).redirect("/admin/photo-gallery");
+        res.status(200).redirect("/admin/wanted-list");
       } else {
         res.status(400).redirect("/admin/add-to-gallery");
       }
@@ -398,10 +398,10 @@ router.get("/delete-photo/:id", (req, res, next) => {
   let p_id = req.params.id;
   photosHelper.deletePhoto(p_id).then((delPhoto) => {
     if (delPhoto.errorMsg) {
-      res.status(400).redirect("/admin/photo-gallery");
+      res.status(400).redirect("/admin/wanted-list");
     } else {
       console.log("successfully deleted");
-      res.redirect("/admin/photo-gallery");
+      res.redirect("/admin/wanted-list");
     }
   });
 });
@@ -411,7 +411,7 @@ router.get("/edit-gallery-photo/:id", async (req, res, next) => {
     let photoObj = await photosHelper.fetchOnePhoto(photoId);
     if (photoObj.errorMsg) {
       res.status(404);
-      res.redirect("/admin/photo-gallery");
+      res.redirect("/admin/wanted-list");
     } else
       res.render("admin/edit-photo", {
         photoObj: photoObj,
@@ -434,13 +434,13 @@ router.post("/edit-gallery-photo", (req, res, next) => {
         docFromClient.mv(uploadPath, (err, done) => {
           if (!err) {
             res.status(200);
-            res.redirect("/admin/photo-gallery");
+            res.redirect("/admin/wanted-list");
           } else {
             res.status(400);
             res.redirect("/admin/edit-gallery-photo");
           }
         });
-      } else res.redirect("/admin/photo-gallery");
+      } else res.redirect("/admin/wanted-list");
     }
   });
 });
