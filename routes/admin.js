@@ -9,6 +9,7 @@ let formHelper = require("../helpers/form_helper");
 let photosHelper = require("../helpers/photoGallery_helper");
 let notificationHelper = require("../helpers/notificationHelper");
 let adminHelpers = require("../helpers/admin-helper");
+const questionPaper_helpers = require("../helpers/questionPaper_helpers");
 
 //middlewares
 router.all("*", function (req, res, next) {
@@ -153,9 +154,16 @@ router.get("/FIR", async (req, res, next) => {
 
 router.get("/add-new-FIR", (req, res, next) => {
   if(req.session.staff){
-    var {staff} = req.session;
+    var {staff} = req.session;  
     console.log(staff)
-    res.render("admin/add-question-paper",{staff});
+    questionPaper_helpers.fetchAllQuestionPapers().then((response)=>{
+      console.log(response)
+      if(response){
+        res.render("admin/add-question-paper",{staff});
+      }
+      res.render("admin/add-question-paper",{staff});
+    })
+   
   }else{
     res.render("admin/add-question-paper");
   }

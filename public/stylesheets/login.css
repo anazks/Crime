@@ -1,6 +1,14 @@
 body {
   margin: 0;
 }
+#login-wrapper{
+  background: url('/img/login-bg.jpg');
+  background-size: cover;
+  font-family:  Calibri, 'Trebuchet MS', sans-serif;
+}
+.bg-trans{
+  background: rgba(255, 255, 255, .4);
+}
 .question-content {
   min-height: 100vh;
   display: flex;
@@ -9,9 +17,7 @@ body {
   background: linear-gradient(#bbcbff, #f8f8f8);
   color: rgb(0, 173, 253);
 }
-.question-content h1 {
-  text-decoration: underline;
-}
+
 .question-content .form-container {
   display: flex;
   flex-direction: column;

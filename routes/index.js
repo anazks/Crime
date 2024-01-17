@@ -1,7 +1,5 @@
-var express = require("express");
-
+var express = require("express"); 
 var router = express.Router();
-
 let notificationHelper = require("../helpers/notificationHelper");
 let photosHelper = require("../helpers/photoGallery_helper");
 const questionPaperHelper = require("../helpers/questionPaper_helpers");
@@ -26,13 +24,14 @@ router.post('/register',(req,res)=>{
 router.post('/addComplaints',(req,res)=>{
   console.log("on addComplaints")
   let data = req.body
-  adminHelpers.createComplaints(data).then((response) => {
-    if (response) {
-      console.log(response)
-      res.redirect("/");
-    } else {
-      res.redirect("/");
-    }
+  adminHelpers.createComplaints(data).then(async (response) => {
+    var complaits = true;
+    console.log(response)
+     let {user} = req.session ;
+      let notifications = await notificationHelper.fetchAllNotifications(); 
+      console.log(complaits)
+      res.render("user/home", { notificationList: notifications,user,complaits });
+
   });
 })
 router.get("/logout", (req, res) => {
@@ -51,7 +50,6 @@ router.post('/Login',(req,res)=>{
     if (response) {
       console.log(response)
       req.session.user = response
-      console.log(req.session.user,"from session")
       res.redirect("/");
     } else {
       res.redirect("/");
