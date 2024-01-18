@@ -1,4 +1,12 @@
-<link rel="stylesheet" href="/stylesheets/add-new-questionpaper.css" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <link rel="stylesheet" href="/stylesheets/add-new-questionpaper.css" />
 <div class="question-content">
   <div class="title">
     <h1>Add FIR </h1>
@@ -34,9 +42,15 @@
       </div>
        <div class="input-group">
         <label for="subject">Assign Cause To</label>
-        <select    name="subject" id="department" required>
-          <option value=""></option>
+
+        <select    name="subject" id="staffSelection" onchange="checkStatus()" required>
+            {{#each officers}}
+                  <option value="{{staff_name}}" id="department">{{staff_name}}</option>
+            {{/each}}
+        </select> 
       </div>
+        <label for="">Current Cause Status <span id="status" style="color: red;"></span> </label>
+
       <br>
       <div class="input-group">
         <label for="semester">Status</label>
@@ -62,3 +76,27 @@
     </form>
   </div>
 </div>
+<script>
+  function checkStatus(){
+      console.log("changed")
+      var selectedStaff = document.getElementById("staffSelection").value;
+      console.log(selectedStaff)
+      fetch('/admin/checkStaffStatus',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ selectedStaff: selectedStaff }),
+      })
+      .then(response =>response.json())
+      .then(data =>{
+        console.log(data)
+        document.getElementById("status").innerHTML = data
+      })
+      .catch(error=>{
+        console.log(error)
+      })
+  }
+</script>
+</body>
+</html>

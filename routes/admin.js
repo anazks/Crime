@@ -152,23 +152,28 @@ router.get("/FIR", async (req, res, next) => {
   }
 });
 
-router.get("/add-new-FIR", (req, res, next) => {
+router.get("/add-new-FIR",async(req, res, next) => {
+  let officers = await staffHelper.selectAllStaff();
+    console.log(officers,"officers")
   if(req.session.staff){
     var {staff} = req.session;  
     console.log(staff)
+    let officers = await staffHelper.selectAllStaff();
+    console.log(officers,"officers")
     questionPaper_helpers.fetchAllQuestionPapers().then((response)=>{
       console.log(response)
       if(response){
-        res.render("admin/add-question-paper",{staff});
+        res.render("admin/add-question-paper",{staff,officers});
+      }else{
+       res.render("admin/add-question-paper",{staff,officers});
       }
-      res.render("admin/add-question-paper",{staff});
     })
    
   }else{
-    res.render("admin/add-question-paper");
+    res.render("admin/add-question-paper",{officers});
   }
     
-  res.render("admin/add-question-paper");
+  res.render("admin/add-question-paper",{officers});
 });
 router.post("/add-new-FIR", (req, res, next) => {
   questionHelper.addNewQuestionPaper(req.body).then((docId) => {
@@ -184,6 +189,26 @@ router.post("/add-new-FIR", (req, res, next) => {
     });
   });
 });
+
+router.post('/checkStaffStatus',async (req,res)=>{
+    try {
+        console.log(req.body)
+        let {selectedStaff} = req.body;
+        let checkStatus = await questionPaper_helpers.fetchAllQuestionPapers(selectedStaff);
+        checkStatus.map((staff)=>{
+             if( staff.subject[1] == selectedStaff){
+              res.json(staff.semester);
+             }else{
+                res.json(data="NO causes available");
+             }
+        })
+        console.log(checkStatus)
+       
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 router.get("/delete-questionpaper/:id", (req, res, next) => {
   let q_id = req.params.id;
   questionHelper.deleteQuestionPaper(q_id).then((deletedQuestion) => {

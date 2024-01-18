@@ -4,6 +4,7 @@ const collections = require("../config/collections");
 
 module.exports = {
   //add , delete , fetch all , fetch by department
+
   addNewQuestionPaper: (questionObj) => {
     return new Promise((resolve, reject) => {
       console.log(questionObj);
