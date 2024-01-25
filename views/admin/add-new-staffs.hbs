@@ -1,11 +1,11 @@
 <link rel="stylesheet" href="/stylesheets/add-new-form.css" />
 <div class="question-content">
   <div class="title">
-    <h1>Add New Police Officer</h1>
+    <h1>Add New Staff</h1>
   </div>
   <div class="form-container" style="height:60vh">
     <form
-      action="/admin/add-new-staff"
+      action="/admin/add-Staff"
       method="post"
       enctype="multipart/form-data"
     >
@@ -46,28 +46,20 @@
           name="phone"
           id="phone"
           required
-          placeholder="Enter the Full name of staff"
+          placeholder="Enter the Phone number of staff"
         />
       </div>
       <div class="input-group">
-        <label for="department_name">Department Name</label>
-        <select name="department_name" id="department_name">
-          <option value="Administration">Administration</option>
-          <option value="Patrol">Patrol</option>
-          <option value="Investigative_services">Investigative services</option>
-          <option value="Services">Services</option>
-        </select>
-      </div>
-      <div class="input-group">
-        <label for="newForm">Image</label>
+        <label for="phone">Password</label>
         <input
-          type="file"
-          accept="image/JPG"
-          name="image"
-          id="image"
+          type="text"
+          name="password"
+          id="phone"
           required
+          placeholder="Enter Password"
         />
       </div>
+     
       <div class="btn-group">
         <input type="submit" class="btn-submit" value="Submit" />
         <input type="reset" class="btn-reset" value="Reset" />

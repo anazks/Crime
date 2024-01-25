@@ -2,7 +2,7 @@ body {
   margin: 0;
 }
 #login-wrapper{
-  background: url('/img/login-bg.jpg');
+  /* background: url('/img/login-bg.jpg'); */
   background-size: cover;
   font-family:  Calibri, 'Trebuchet MS', sans-serif;
 }

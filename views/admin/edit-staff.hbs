@@ -50,6 +50,16 @@
         />
       </div>
       <div class="input-group">
+        <label for="phone">Password</label>
+        <input
+          type="text"
+          name="phone"
+          id="phone"
+          required
+          value="{{staffDetails.phone}}"
+        />
+      </div>
+      {{!-- <div class="input-group">
         <label for="department">Department</label>
         <input
           type="text"
@@ -70,13 +80,13 @@
           <option value="ec">Electronics and Communication</option>
           <option value="me">Mechanical Engineering</option>
         </select>
-      </div>
+      </div> --}}
       <input type="hidden" name="_id" value="{{staffDetails._id}}" />
-      <div class="input-group">
+      {{!-- <div class="input-group">
         <label for="newForm">Image</label>
         <img src="/img/staff/{{staffDetails._id}}.jpg" id="img-container" width="100" height="100" alt="">
         <input type="file" accept="image/JPG" name="image" id="image" onchange="callBack()" />
-      </div>
+      </div> --}}
       <div class="btn-group">
         <input type="submit" class="btn-submit" value="Submit" />
         <input type="reset" class="btn-reset" value="Reset" />

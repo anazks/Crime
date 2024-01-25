@@ -5,45 +5,26 @@
   </div>
   <table>
     <tr>
-      <th>Name</th>
-      <th>Department</th>
-      <th>Position</th>
+      <th>username</th>
+      <th>emailId</th>
+      <th>password</th>
+      <th>status</th>
+      <th>action</th>
+      <th>option</th>
+
     </tr>
-    {{#each counts.staffList}}
+    {{#each staffList}}
       <tr>
         <td>{{staff_name}}</td>
-        <td>{{department_name}}</td>
-        <td>{{position}} </td>
+        <td>{{email}}</td>
+        <td>{{password}} </td>
+        <td>{{status}}</td>
+        <td class="text-success">online</td>
+        <td><a href="" class="btn btn-success">allow</a></td>
+        <td><input type="checkbox">&nbsp;Make admin</td>
       </tr>
     {{/each}}
   </table>
 </div>
-<div class="departments">
-  <div class="title">
-    <h2>Departments</h2>
-    <a href="#" class="btn">View All</a>
-  </div>
-  <table>
-    <tr>
-      <th>Dept ID</th>
-      <th>Name</th>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>Administrator</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Petrole</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Investigative service</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Service</td>
-    </tr>
-    
-  </table>
+
 </div>

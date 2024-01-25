@@ -3,16 +3,26 @@ var express = require("express");
 var path = require("path");
 const hbs = require("hbs");
 var logger = require("morgan");
-const db = require("./config/connection");
+// const db = require("./config/connection");
+const connectDB = require('./DB/db')
 const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser"); //to get req.body in post method
 const session = require("express-session");
+require('dotenv').config();
 
 const indexRouter = require("./routes/index");
 const adminRouter = require("./routes/admin");
 
 var app = express();
-
+const Dbconnect = async ()=>{
+    try {
+      await connectDB()
+      console.log("mongooseDB connected as succesfullY!")
+    } catch (error) {
+        console.log(error)
+    }
+}
+Dbconnect();
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
@@ -40,10 +50,10 @@ app.use(
   })
 );
 
-db.connect((err) => {
-  if (err) console.log(err);
-  else console.log("DB Connected");
-});
+// db.connect((err) => {
+//   if (err) console.log(err);
+//   else console.log("DB Connected");
+// });
 
 app.use("/", indexRouter);
 app.use("/admin", adminRouter);
