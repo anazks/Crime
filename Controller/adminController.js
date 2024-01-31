@@ -1,5 +1,7 @@
 const staffModel =  require('../models/staffModel')
 const errModel = require('../models/errorModel')
+const bcrypt = require("bcrypt");
+
 const getLoginPage = (req,res)=>{
         try {
             res.render("admin/login",{ layout: false })
@@ -93,6 +95,9 @@ const logout = (req,res)=>{
 }
 const addStaff = async(req,res)=>{
         try {
+            let {password} = req.body;
+            password = await bcrypt.hash(password,10)
+            req.body.password = password;
             let staff = await staffModel.create(req.body);
                 if(staff){
                     res.redirect('/admin/getStaffPage')

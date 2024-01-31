@@ -8,6 +8,11 @@ const connectDB = require('./DB/db')
 const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser"); //to get req.body in post method
 const session = require("express-session");
+const LocalStrategy = require("passport-local");
+const passport = require("passport");
+const MongoStore = require("connect-mongo");
+
+require('./Authentication/Passport-config')
 require('dotenv').config();
 
 const indexRouter = require("./routes/index");
@@ -35,6 +40,7 @@ app.all("*", (req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
 app.use(fileUpload());
 
 app.use(logger("dev"));
@@ -43,13 +49,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({
-    secret: "Key",
+    secret: "keyboard cat",
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 600000 },
+    store: MongoStore.create({
+      mongoUrl: `mongodb+srv://user02:123@ecommerceweb.3j3ck.mongodb.net/training?retryWrites=true&w=majority`,
+    }),
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24,
+    },
   })
 );
-
+app.use(passport.initialize());
+app.use(passport.session());
 // db.connect((err) => {
 //   if (err) console.log(err);
 //   else console.log("DB Connected");
