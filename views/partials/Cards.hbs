@@ -110,12 +110,35 @@
                 newDiv.style.color = 'white';
 
                 // Get a random index to select a random error message
-                const randomIndex = getRandomInt(0, 100);
-                    if(randomIndex > errors.length){
-                            newDiv.textContent = `Processing`;
-                    }else{
-                        newDiv.textContent = `Error: ${errors[randomIndex].error}`;
+                const randomIndex = getRandomInt(0,10);
+                if (randomIndex > errors.length) {
+                    newDiv.textContent = `Processing`;
+                } else {
+                    const error = errors[randomIndex];
+                    newDiv.textContent = `Error: ${error.error}`;
+
+                    // Check if the error object has an "id" property
+                    if (error._id) {
+                        // Set the error ID as a data attribute on the div
+                        newDiv.dataset.errorId = error.id;
+
+                        // Add a click event listener to log the error ID when clicked
+                        newDiv.addEventListener('click', function () {
+                            console.log(error,"error")
+                            console.log('Clicked on error ID:', error._id,error.error);
+                            document.getElementById('Error').innerHTML = error.error
+                            document.getElementById('errorId').value = error._id;
+                            document.getElementById('trublecode').value = error.trublecode
+                            document.getElementById('Error').style.fontSize = "30px"
+                            document.getElementById('Error').style.fontStyle = "bold"
+                            document.getElementById("leftBox").style.backgroundColor ="red"
+                            document.getElementById('codes').style.display = "block"
+                            document.getElementById("callResolveApi").style.display='block'
+                        });
+                    } else {
+                        console.error('Error object does not have an "id" property:', error);
                     }
+                }
 
                 newDiv.style.backgroundColor = 'rgb(46, 44, 44)';
                 newDiv.style.marginLeft = '10px';

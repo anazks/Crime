@@ -13,7 +13,8 @@ router.use(passport.session());
 let {
     userLogin,
     userHome,
-    errors
+    errors,
+    ResolveError
 } = require('../Controller/userController')
 
 
@@ -29,7 +30,7 @@ router.post('/login', passport.authenticate("local", {
     successRedirect: "/home",
     failureRedirect: "/",
   }))
-
+router.post('/ResolveError',ResolveError)
   router.get('/errors',errors)
 // router.post('/login',(req,res)=>{
 //   console.log(req.body)

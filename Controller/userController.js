@@ -20,12 +20,30 @@ let errors = async (req,res)=>{
         try {
             let errors = await errorModel.find({})
             res.json(errors)
-        } catch (error) {
+        } catch (error) {   
             console.log(error)
         }
+}
+let ResolveError =async (req,res)=>{
+    try {
+        console.log(req.body)
+        let {trublecode} = req.body;
+        let {code} = req.body;
+        if(trublecode == code) {
+            res.json({ErrorStatus:true})
+        }else{
+            
+            console.log("not solved")
+            res.json({ErrorStatusrue:false})
+
+        }
+      } catch (error) {
+        console.log(error)
+      }
 }
 module.exports = {
     userLogin,
     userHome,
-    errors
+    errors,
+    ResolveError
 }
