@@ -9,38 +9,30 @@
   <link rel="stylesheet" href="/stylesheets/add-new-questionpaper.css" />
 <div class="question-content">
   <div class="title">
-    <h1>Add FIR </h1>
+    <h1>Add Error </h1>
   </div>
   <div class="form-container">
     <form
-      action="/admin/add-new-FIR"
+      action="/admin/addError"
       method="post"
       enctype="multipart/form-data"
     >
       <div class="input-group">
-        <label for="department">Type</label>
-        <select name="department" id="department" required>
+        <label for="department">Error</label>
+              <input type="text" name="error" placeholder="Error code">
+        {{!-- <select name="department" id="department" required>
           <option value="" selected disabled hidden>SELECT ONE</option>
           <option value="General">General F.I.R</option>
           <option value="Zero">Zero F.I.R</option>
           <option value="Cross">Cross F.I.R:</option>
           <option value="Multiple">Multiple F.I.R</option>
-        </select>
+        </select> --}}
       </div>
       <div class="input-group">
-        <label for="subject">offenses Type</label>
-        <select    name="subject" id="department" required>
-          <option value="" selected disabled hidden>SELECT ONE</option>
-          <option value="Assault">Assault</option>
-          <option value="Murder">Murder</option>
-          <option value="Child_abuse">Child abuse</option>
-          <option value="Robbery">Robbery</option>
-          <option value="Career_criminals">Career criminals</option>
-          <option value="Common_assault">Common assault</option>
-          <option value="Conspiracy">Conspiracy</option>
-        </select>
+        <label for="subject">Trubble shoot code</label>
+              <input type="text" placeholder="Truble shoot code" name="trublecode">
       </div>
-       <div class="input-group">
+       {{!-- <div class="input-group">
         <label for="subject">Assign Cause To</label>
 
         <select    name="subject" id="staffSelection" onchange="checkStatus()" required>
@@ -48,27 +40,22 @@
                   <option value="{{staff_name}}" id="department">{{staff_name}}</option>
             {{/each}}
         </select> 
-      </div>
-        <label for="">Current Cause Status <span id="status" style="color: red;"></span> </label>
+      </div> --}}
+        {{!-- <label for="">Current Cause Status <span id="status" style="color: red;"></span> </label> --}}
 
-      <br>
+
       <div class="input-group">
-        <label for="semester">Status</label>
-        <select name="semester" id="semester" required>
-          <option value="">Select </option>
-          <option value="ongoing">On Going</option>
-          <option value="pending">Pending</option>
-          <option value="Clossed">Clossed</option>
-        </select>
+        <label for="subject">Description</label>
+              <input type="text" placeholder="Description" name="Description">
       </div>
-      <div class="input-group">
+      {{!-- <div class="input-group">
         <label for="year_month">Year and Month</label>
         <input type="month" name="year_month" id="year_month" required />
       </div>
       <div class="input-group">
         <label for="qPaper">Document</label>
         <input type="file" accept=".pdf" name="qustionP" id="qPaper" required />
-      </div>
+      </div> --}}
       <div class="btn-group">
         <input type="submit" class="btn-submit" value="Submit" />
         <input type="reset" class="btn-reset" value="Reset" />

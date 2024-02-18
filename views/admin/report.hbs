@@ -1,12 +1,26 @@
 <link rel="stylesheet" href="/stylesheets/view-all-forms.css" />
-
+  <style>
+    .erroBox{
+      display: flex;
+        justify-content: space-around;
+    }
+  </style>
 <div class="main-container">
   <div class="title">
-    <h1>Wanted List</h1>
-    <a href="/admin/add-to-gallery" class="btn">Add New List</a>
+    <h1>Report Genaration</h1>
+    {{!-- <a href="/admin/add-to-gallery" class="btn">Add New List</a> --}}
   </div>
-  <div class="sub-contents">
-    <table id="formsTable">
+  <div class="sub-contents ">
+       <div class="erroBox">
+         <div class="staffReport" style="margin-top: 10px;">
+              <a href="" class="btn btn-info">Genarate staff Report</a>
+          </div>
+         <div class="staffReport" style="margin-top: 10px;">
+              <a href="" class="btn btn-info">Genarate Error Handling Report</a>
+        </div> 
+   
+       </div>
+    {{!-- <table id="formsTable">
       <thead>
         <tr>
           <th>Title</th>
@@ -36,7 +50,7 @@
           </tr>
         {{/each}}
       </tbody>
-    </table>
+    </table> --}}
   </div>
 </div>
 <script>
