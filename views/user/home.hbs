@@ -272,35 +272,91 @@ https://templatemo.com/tm-548-training-studio
   <!-- ***** Main Banner Area End ***** -->
 
   <!-- ***** Features Item Start ***** -->
-
-  <section class="section" id="features">
-    <div class="container">
+  
+  {{#if user}}
+  <section class="section" id="Complaints">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-6 offset-lg-3">
+        <div class="col-lg-6 col-md-6 col-xs-12">
           <div class="section-heading">
-            <h2>About </em>
-            </h2>
-            <img src="assets/images/line-dec.png" alt="waves">
-            <p>E0polix is a cutting-edge crime file management system meticulously designed to revolutionize the way law
-              enforcement agencies handle, organize, and analyze crucial data related to police cases. It serves as a
-              comprehensive platform tailored to the specific needs of law enforcement, streamlining the management of
-              FIRs (First Information Reports), criminal records, and essential case-related information.
+                <h2>About </em>
+                </h2>
+                <img src="assets/images/line-dec.png" alt="waves">
+                <p>E0polix is a cutting-edge crime file management system meticulously designed to revolutionize the way law
+                  enforcement agencies handle, organize, and analyze crucial data related to police cases. It serves as a
+                  comprehensive platform tailored to the specific needs of law enforcement, streamlining the management of
+                  FIRs (First Information Reports), criminal records, and essential case-related information.
 
-              With its user-friendly interface and robust functionalities, E0polix empowers law enforcement personnel to
-              efficiently manage and retrieve critical data, aiding in investigations, ensuring data integrity, and
-              fostering collaboration among departments. From logging and tracking FIRs to securely storing criminal
-              records, E0polix stands as the go-to solution for modern law enforcement agencies committed to enhancing
-              operational efficiency and delivering justice.</p>
+                  With its user-friendly interface and robust functionalities, E0polix empowers law enforcement personnel to
+                  efficiently manage and retrieve critical data, aiding in investigations, ensuring data integrity, and
+                  fostering collaboration among departments. From logging and tracking FIRs to securely storing criminal
+                  records, E0polix stands as the go-to solution for modern law enforcement agencies committed to enhancing
+                  operational efficiency and delivering justice.</p>
+              </div>
+          
+        </div>
+        <div class="col-lg-6 col-md-6 col-xs-12 mt-5">
+          <div class="contact-form">
+            <form id="contact" action="/addComplaints" method="post">
+              <div class="row">
+                <div class="col-md-6 col-sm-12">
+                  <fieldset>
+                    <input name="name" type="text" id="name" placeholder="Your Name*" required="">
+                  </fieldset>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <fieldset>
+                    <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email*"
+                      required="">
+                  </fieldset>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                  <fieldset>
+                    <textarea name="subject"  id="subject" placeholder="Descreption">
+                    </textarea>
+                  </fieldset>
+                </div>
+                <div class="col-md-12 col-sm-12" style="display: flex;">
+                  <select name="type" id="">
+                    <option value="Missing">Missing</option>
+                    <option value="Robbery">Robbery</option>
+                    <option value="Murder">Murder</option>
+                    <option value="Civil">Civil</option>
+                    <option value="Child_Violance">Child Violance</option>
+                    <option value="women_Violance">Violence against women</option>
+                  </select>
+                   <div class="col-md-12 col-sm-12">
+                  <label for="district">District:</label>
+                  <select name="district" id="district">
+                    <!-- Dynamically generate options for districts -->
+                  </select>
+                </div>
+                </div>
+                  
+               
+                <div class="col-lg-12">
+                  <br>
+                  <br>
+                  <fieldset>
+                    <button type="submit" id="form-submit" class="main-button" onclick="myfunction">Register Complaits</button>
+                  </fieldset>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
-
-
       </div>
+    </div>
   </section>
+  {{/if}}
+
+ 
+
+
   <!-- ***** Features Item End ***** -->
 
   <!-- ***** Call to Action Start ***** -->
-  <section class="section" id="call-to-action">
+  {{!-- <section class="section" id="call-to-action">
     <div class="container">
       <div class="row">
         <div class="col-lg-10 offset-lg-1">
@@ -316,7 +372,7 @@ https://templatemo.com/tm-548-training-studio
         </div>
       </div>
     </div>
-  </section>
+  </section> --}}
   <!-- ***** Call to Action End ***** -->
 
   <!-- ***** Our Classes Start ***** -->
@@ -488,6 +544,20 @@ https://templatemo.com/tm-548-training-studio
     function complaits(){
         console.log("clicked")
     }
+ 
+  // Array of districts in Kerala
+  const districtsOfKerala = ["Thiruvananthapuram", "Kollam", "Pathanamthitta", "Alappuzha", "Kottayam", "Idukki", "Ernakulam", "Thrissur", "Palakkad", "Malappuram", "Kozhikode", "Wayanad", "Kannur", "Kasaragod"];
+
+  // Get the district select element
+  const districtSelect = document.getElementById("district");
+
+  // Populate options for districts
+  districtsOfKerala.forEach(district => {
+    const option = document.createElement("option");
+    option.value = district;
+    option.text = district;
+    districtSelect.appendChild(option);
+  });
   </script>
 
   <!-- jQuery -->

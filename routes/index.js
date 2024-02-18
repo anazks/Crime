@@ -24,6 +24,7 @@ router.post('/register',(req,res)=>{
 router.post('/addComplaints',(req,res)=>{
   console.log("on addComplaints")
   let data = req.body
+  console.log(data,"data")
   adminHelpers.createComplaints(data).then(async (response) => {
     var complaits = true;
     console.log(response)

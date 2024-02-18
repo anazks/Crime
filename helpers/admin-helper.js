@@ -92,6 +92,7 @@ module.exports = {
     });
   },
   createComplaints: (data) => {
+    console.log(data,"in helper")
     return new Promise(async (resolve, reject) => {
       db.get()
         .collection(collection.COMPLAINT_COLLECTION)
